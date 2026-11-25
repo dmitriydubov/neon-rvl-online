@@ -427,7 +427,7 @@ LF, доступ `helm` к кластеру, наличие Secret и то, чт
 
 | Метрика | Что считает | Когда тревожиться |
 |---|---|---|
-| `contracts_inbox_failed_total{event_type}` | входящее сообщение отклонено окончательно: нарушение контракта, постоянный отказ базы, внутренняя ошибка или исчерпана лестница повторов | любой рост; `event_type="ContractTaskCancelled"` — срочно |
+| `contracts_inbox_failed_total{event_type}` | входящее сообщение отклонено окончательно (`ContractTaskUpserted`, `ContractTaskCancelled`, `KmContractRegistered`, `LmPolicyIssued`, `PaymentOrderEvent` или неизвестный тип из конверта): нарушение контракта, постоянный отказ базы, внутренняя ошибка или исчерпана лестница повторов | любой рост; `event_type="ContractTaskCancelled"` — срочно |
 | `contracts_inbox_lost_total{reason}` | входящее сообщение потеряно без записи в журнал; `reason` — `unusable_envelope`, `unreadable_body` | любой рост |
 | `contracts_inbox_quarantined_total` | входящее сообщение положено в карантин (`inbox_quarantine`): база не принимает его тело — нулевой символ, непарный суррогат или отказ базы класса 22; повтор того же сообщения не считается | любой рост |
 | `contracts_leader` | `1` — экземпляр ведущий (читает очереди, разбирает журналы, публикует, готовит запросы в 1С:УСК, ведёт заказы на оплату), `0` — неведущий; при нескольких экземплярах сумма по экземплярам равна 1 | `sum(contracts_leader) != 1` дольше `LEADER_LOCK_TTL`, например `for: 2m` |

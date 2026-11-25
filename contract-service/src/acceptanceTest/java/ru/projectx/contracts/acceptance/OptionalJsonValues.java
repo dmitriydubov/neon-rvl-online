@@ -99,12 +99,14 @@ final class OptionalJsonValues {
                 yield BOOLEAN_MARKER;
             }
             case ARRAY -> {
-                assertThat(node.isArray() && node.size() == 1 && NODE_MARKER.equals(node.path(0).stringValue()))
+                assertThat(node.isArray() && node.size() == 1
+                        && node.path(0).isString() && NODE_MARKER.equals(node.path(0).stringValue()))
                         .as("узел %s — массив с %s", path, NODE_MARKER).isTrue();
                 yield NODE_MARKER;
             }
             case OBJECT -> {
-                assertThat(node.isObject() && NODE_MARKER.equals(node.path("note").stringValue()))
+                assertThat(node.isObject()
+                        && node.path("note").isString() && NODE_MARKER.equals(node.path("note").stringValue()))
                         .as("узел %s — объект с %s", path, NODE_MARKER).isTrue();
                 yield NODE_MARKER;
             }
